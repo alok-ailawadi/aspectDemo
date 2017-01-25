@@ -5,9 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 
 
@@ -38,12 +36,10 @@ public class EncryptionAspect {
     @Around("encryptPointCutDefinition() && atExecution()")
     public void encrypt(ProceedingJoinPoint point)
     {
-        System.out.println("inside the aspect");
         Object[] args = point.getArgs();
         if(args[0]!=null && args[0] instanceof String)
         {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
-            args[0] = encryptionService.encrypt((String) args[0]) ;
+           args[0] = encryptionService.encrypt((String) args[0]) ;
         }
 
 
@@ -52,6 +48,6 @@ public class EncryptionAspect {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        System.out.println("after proceed");
+
     }
 }
